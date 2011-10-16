@@ -69,7 +69,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDBCUR_jump
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   bool rv = tcbdbcurjump(cur, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -106,7 +106,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDBCUR_put
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcbdbcurput(cur, vbuf, vsiz, cpmode);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
   return rv;
 }
 

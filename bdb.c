@@ -159,7 +159,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_open
     return false;
   }
   bool rv = tcbdbopen(bdb, tpath, omode);
-  if(icp) (*env)->ReleaseStringUTFChars(env, path, tpath);
+  (*env)->ReleaseStringUTFChars(env, path, tpath);
   return rv;
 }
 
@@ -195,8 +195,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_put
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcbdbput(bdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -224,8 +224,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_putkeep
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcbdbputkeep(bdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -253,8 +253,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_putcat
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcbdbputcat(bdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -282,8 +282,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_putdup
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcbdbputdup(bdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -322,11 +322,11 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_putlist
     }
     int vsiz = (*env)->GetArrayLength(env, val);
     tclistpush(tvals, vbuf, vsiz);
-    if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
   }
   bool rv = tcbdbputdup3(bdb, kbuf, ksiz, tvals);
   tclistdel(tvals);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -347,7 +347,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_out
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   bool rv = tcbdbout(bdb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -368,7 +368,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_outlist
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   bool rv = tcbdbout3(bdb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -402,7 +402,7 @@ JNIEXPORT jbyteArray JNICALL Java_tokyocabinet_BDB_get
   } else {
     val = NULL;
   }
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return val;
 }
 
@@ -441,7 +441,7 @@ JNIEXPORT jobject JNICALL Java_tokyocabinet_BDB_getlist
   } else {
     vals = NULL;
   }
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return vals;
 }
 
@@ -462,7 +462,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_BDB_vnum
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   bool rv = tcbdbvnum(bdb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -483,7 +483,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_BDB_vsiz
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   int rv = tcbdbvsiz(bdb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -537,8 +537,8 @@ JNIEXPORT jobject JNICALL Java_tokyocabinet_BDB_range
     (*env)->DeleteLocalRef(env, key);
   }
   tclistdel(tkeys);
-  if(icek) (*env)->ReleaseByteArrayElements(env, ekey, ekbuf, JNI_ABORT);
-  if(icbk) (*env)->ReleaseByteArrayElements(env, bkey, bkbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, ekey, ekbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, bkey, bkbuf, JNI_ABORT);
   return keys;
 }
 
@@ -572,7 +572,7 @@ JNIEXPORT jobject JNICALL Java_tokyocabinet_BDB_fwmkeys
     (*env)->DeleteLocalRef(env, key);
   }
   tclistdel(tkeys);
-  if(icp) (*env)->ReleaseByteArrayElements(env, prefix, pbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, prefix, pbuf, JNI_ABORT);
   return keys;
 }
 
@@ -593,7 +593,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_BDB_addint
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   num = tcbdbaddint(bdb, kbuf, ksiz, num);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return num;
 }
 
@@ -614,7 +614,7 @@ JNIEXPORT jdouble JNICALL Java_tokyocabinet_BDB_adddouble
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   num = tcbdbadddouble(bdb, kbuf, ksiz, num);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return num;
 }
 
@@ -658,7 +658,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_BDB_copy
     return false;
   }
   bool rv = tcbdbcopy(bdb, tpath);
-  if(icp) (*env)->ReleaseStringUTFChars(env, path, tpath);
+  (*env)->ReleaseStringUTFChars(env, path, tpath);
   return rv;
 }
 

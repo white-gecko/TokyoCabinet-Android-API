@@ -73,8 +73,8 @@ JNIEXPORT void JNICALL Java_tokyocabinet_TDBQRY_addcond
   jboolean ice;
   const char *texpr = (*env)->GetStringUTFChars(env, expr, &ice);
   tctdbqryaddcond(qry, tname, op, texpr);
-  if(ice) (*env)->ReleaseStringUTFChars(env, expr, texpr);
-  if(icn) (*env)->ReleaseStringUTFChars(env, name, tname);
+  (*env)->ReleaseStringUTFChars(env, expr, texpr);
+  (*env)->ReleaseStringUTFChars(env, name, tname);
 }
 
 
@@ -89,7 +89,7 @@ JNIEXPORT void JNICALL Java_tokyocabinet_TDBQRY_setorder
   jboolean icn;
   const char *tname = (*env)->GetStringUTFChars(env, name, &icn);
   tctdbqrysetorder(qry, tname, type);
-  if(icn) (*env)->ReleaseStringUTFChars(env, name, tname);
+  (*env)->ReleaseStringUTFChars(env, name, tname);
 }
 
 
@@ -115,7 +115,7 @@ JNIEXPORT jobject JNICALL Java_tokyocabinet_TDBQRY_search
     const char *kbuf = tclistval(tkeys, i, &ksiz);
     jbyteArray pkey = (*env)->NewByteArray(env, ksiz);
     (*env)->SetByteArrayRegion(env, pkey, 0, ksiz, (jbyte *)kbuf);
-    (*env)->CallVoidMethod(env, pkeys, midadd, pkey);
+    (*env)->CallBooleanMethod(env, pkeys, midadd, pkey);
     (*env)->DeleteLocalRef(env, pkey);
   }
   tclistdel(tkeys);
@@ -282,8 +282,8 @@ JNIEXPORT jobjectArray JNICALL Java_tokyocabinet_TDBQRY_kwicimpl
     int vsiz = (*env)->GetArrayLength(env, val);
     if(!cbuf || (nsiz == csiz && !memcmp(nbuf, cbuf, nsiz)))
       tcmapputkeep(tcols, nbuf, nsiz, vbuf, vsiz);
-    if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-    if(icn) (*env)->ReleaseByteArrayElements(env, name, nbuf, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, name, nbuf, JNI_ABORT);
     (*env)->DeleteLocalRef(env, val);
     (*env)->DeleteLocalRef(env, name);
   }
@@ -300,7 +300,7 @@ JNIEXPORT jobjectArray JNICALL Java_tokyocabinet_TDBQRY_kwicimpl
     (*env)->DeleteLocalRef(env, text);
   }
   tclistdel(texts);
-  if(icc) (*env)->ReleaseStringUTFChars(env, name, cbuf);
+  (*env)->ReleaseStringUTFChars(env, name, cbuf);
   tcmapdel(tcols);
   return ary;
 }
@@ -382,8 +382,8 @@ static int tcprocrec(const void *pkbuf, int pksiz, TCMAP *cols, TCPROCOP *procop
       }
       int vsiz = (*env)->GetArrayLength(env, value);
       tcmapputkeep(cols, nbuf, nsiz, vbuf, vsiz);
-      if(icv) (*env)->ReleaseByteArrayElements(env, value, vbuf, JNI_ABORT);
-      if(icn) (*env)->ReleaseByteArrayElements(env, name, nbuf, JNI_ABORT);
+      (*env)->ReleaseByteArrayElements(env, value, vbuf, JNI_ABORT);
+      (*env)->ReleaseByteArrayElements(env, name, nbuf, JNI_ABORT);
       (*env)->DeleteLocalRef(env, value);
       (*env)->DeleteLocalRef(env, name);
       (*env)->DeleteLocalRef(env, entry);

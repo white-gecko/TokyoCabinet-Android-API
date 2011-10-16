@@ -81,7 +81,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_Util_unpackint
   } else {
     num = 0;
   }
-  if(ic) (*env)->ReleaseByteArrayElements(env, serial, buf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, serial, buf, JNI_ABORT);
   return num;
 }
 
@@ -119,7 +119,7 @@ JNIEXPORT jdouble JNICALL Java_tokyocabinet_Util_unpackdouble
   } else {
     num = 0.0;
   }
-  if(ic) (*env)->ReleaseByteArrayElements(env, serial, buf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, serial, buf, JNI_ABORT);
   return num;
 }
 
@@ -134,7 +134,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_Util_system
     return false;
   }
   int rv = system(tcmd);
-  if(iccmd) (*env)->ReleaseStringUTFChars(env, cmd, tcmd);
+  (*env)->ReleaseStringUTFChars(env, cmd, tcmd);
   return rv;
 }
 
@@ -149,7 +149,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_Util_chdir
     return false;
   }
   int rv = chdir(tpath);
-  if(icp) (*env)->ReleaseStringUTFChars(env, path, tpath);
+  (*env)->ReleaseStringUTFChars(env, path, tpath);
   return rv;
 }
 
@@ -196,8 +196,8 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_Util_putenv
   tcmapput2(envmap, tname, expr);
   const char *cexpr = tcmapget2(envmap, tname);
   int rv = putenv((char *)cexpr);
-  if(icv) (*env)->ReleaseStringUTFChars(env, value, tvalue);
-  if(icn) (*env)->ReleaseStringUTFChars(env, name, tname);
+  (*env)->ReleaseStringUTFChars(env, value, tvalue);
+  (*env)->ReleaseStringUTFChars(env, name, tname);
   return rv;
 }
 
@@ -213,7 +213,7 @@ JNIEXPORT jstring JNICALL Java_tokyocabinet_Util_getenv
   }
   char *tval = getenv(tname);
   jstring value = tval ? (*env)->NewStringUTF(env, tval) : NULL;
-  if(icn) (*env)->ReleaseStringUTFChars(env, name, tname);
+  (*env)->ReleaseStringUTFChars(env, name, tname);
   return value;
 }
 

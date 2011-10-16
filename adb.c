@@ -64,7 +64,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_ADB_open
     return false;
   }
   bool rv = tcadbopen(adb, tname);
-  if(icn) (*env)->ReleaseStringUTFChars(env, name, tname);
+  (*env)->ReleaseStringUTFChars(env, name, tname);
   return rv;
 }
 
@@ -100,8 +100,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_ADB_put
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcadbput(adb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -129,8 +129,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_ADB_putkeep
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcadbputkeep(adb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -158,8 +158,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_ADB_putcat
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tcadbputcat(adb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -180,7 +180,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_ADB_out
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   bool rv = tcadbout(adb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -214,7 +214,7 @@ JNIEXPORT jbyteArray JNICALL Java_tokyocabinet_ADB_get
   } else {
     val = NULL;
   }
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return val;
 }
 
@@ -235,7 +235,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_ADB_vsiz
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   int rv = tcadbvsiz(adb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -299,7 +299,7 @@ JNIEXPORT jobject JNICALL Java_tokyocabinet_ADB_fwmkeys
     (*env)->DeleteLocalRef(env, key);
   }
   tclistdel(tkeys);
-  if(icp) (*env)->ReleaseByteArrayElements(env, prefix, pbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, prefix, pbuf, JNI_ABORT);
   return keys;
 }
 
@@ -320,7 +320,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_ADB_addint
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   num = tcadbaddint(adb, kbuf, ksiz, num);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return num;
 }
 
@@ -341,7 +341,7 @@ JNIEXPORT jdouble JNICALL Java_tokyocabinet_ADB_adddouble
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   num = tcadbadddouble(adb, kbuf, ksiz, num);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return num;
 }
 
@@ -371,7 +371,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_ADB_optimize
     tparams = NULL;
   }
   bool rv = tcadboptimize(adb, tparams);
-  if(icp) (*env)->ReleaseStringUTFChars(env, params, tparams);
+  (*env)->ReleaseStringUTFChars(env, params, tparams);
   return rv;
 }
 
@@ -399,7 +399,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_ADB_copy
     return false;
   }
   bool rv = tcadbcopy(adb, tpath);
-  if(icp) (*env)->ReleaseStringUTFChars(env, path, tpath);
+  (*env)->ReleaseStringUTFChars(env, path, tpath);
   return rv;
 }
 
@@ -505,7 +505,7 @@ JNIEXPORT jobjectArray JNICALL Java_tokyocabinet_ADB_miscimpl
     }
     int asiz = (*env)->GetArrayLength(env, arg);
     tclistpush(targs, abuf, asiz);
-    if(ica) (*env)->ReleaseByteArrayElements(env, arg, abuf, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, arg, abuf, JNI_ABORT);
     (*env)->DeleteLocalRef(env, arg);
   }
   jobject res = NULL;
@@ -528,7 +528,7 @@ JNIEXPORT jobjectArray JNICALL Java_tokyocabinet_ADB_miscimpl
     tclistdel(tres);
   }
   tclistdel(targs);
-  if(icn) (*env)->ReleaseStringUTFChars(env, name, tname);
+  (*env)->ReleaseStringUTFChars(env, name, tname);
   return res;
 }
 

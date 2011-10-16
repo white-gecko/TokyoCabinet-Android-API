@@ -104,7 +104,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_HDB_open
     return false;
   }
   bool rv = tchdbopen(hdb, tpath, omode);
-  if(icp) (*env)->ReleaseStringUTFChars(env, path, tpath);
+  (*env)->ReleaseStringUTFChars(env, path, tpath);
   return rv;
 }
 
@@ -140,8 +140,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_HDB_put
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tchdbput(hdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -169,8 +169,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_HDB_putkeep
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tchdbputkeep(hdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -198,8 +198,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_HDB_putcat
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tchdbputcat(hdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -227,8 +227,8 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_HDB_putasync
   }
   int vsiz = (*env)->GetArrayLength(env, val);
   bool rv = tchdbputasync(hdb, kbuf, ksiz, vbuf, vsiz);
-  if(icv) (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, val, vbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -249,7 +249,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_HDB_out
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   bool rv = tchdbout(hdb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -283,7 +283,7 @@ JNIEXPORT jbyteArray JNICALL Java_tokyocabinet_HDB_get
   } else {
     val = NULL;
   }
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return val;
 }
 
@@ -304,7 +304,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_HDB_vsiz
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   int rv = tchdbvsiz(hdb, kbuf, ksiz);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return rv;
 }
 
@@ -368,7 +368,7 @@ JNIEXPORT jobject JNICALL Java_tokyocabinet_HDB_fwmkeys
     (*env)->DeleteLocalRef(env, key);
   }
   tclistdel(tkeys);
-  if(icp) (*env)->ReleaseByteArrayElements(env, prefix, pbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, prefix, pbuf, JNI_ABORT);
   return keys;
 }
 
@@ -389,7 +389,7 @@ JNIEXPORT jint JNICALL Java_tokyocabinet_HDB_addint
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   num = tchdbaddint(hdb, kbuf, ksiz, num);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return num;
 }
 
@@ -410,7 +410,7 @@ JNIEXPORT jdouble JNICALL Java_tokyocabinet_HDB_adddouble
   }
   int ksiz = (*env)->GetArrayLength(env, key);
   num = tchdbadddouble(hdb, kbuf, ksiz, num);
-  if(ick) (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
+  (*env)->ReleaseByteArrayElements(env, key, kbuf, JNI_ABORT);
   return num;
 }
 
@@ -454,7 +454,7 @@ JNIEXPORT jboolean JNICALL Java_tokyocabinet_HDB_copy
     return false;
   }
   bool rv = tchdbcopy(hdb, tpath);
-  if(icp) (*env)->ReleaseStringUTFChars(env, path, tpath);
+  (*env)->ReleaseStringUTFChars(env, path, tpath);
   return rv;
 }
 
