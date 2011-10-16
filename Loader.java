@@ -38,6 +38,9 @@ class Loader {
    */
   static synchronized void load(){
     if(loaded) return;
+
+    System.loadLibrary("bz");
+    System.loadLibrary("tokyocabinet");
     System.loadLibrary("jtokyocabinet");
     loaded = true;
   }
