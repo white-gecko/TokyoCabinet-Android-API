@@ -1,0 +1,13 @@
+This is a copy of the Tokyo Cabinet API for Java from http://fallabs.com/tokyocabinet/#packages with some improvements to run on Android.
+The code was initially Version 1.24 from http://fallabs.com/tokyocabinet/javapkg/tokyocabinet-java-1.24.tar.gz.
+
+= License =
+Tokyo Cabinet is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License or any later version.
+
+Tokyo Cabinet is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with Tokyo Cabinet (See the file `COPYING'); if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+
+Tokyo Cabinet was written by FAL Labs. You can contact the author by e-mail to `info@fallabs.com'.
+
+The adopten for Android was written by Natanael Arndt <arndtn [at] gmail [dot] com>
