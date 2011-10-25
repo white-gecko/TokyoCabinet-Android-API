@@ -1,3 +1,5 @@
+package tokyocabinet.example;
+
 import tokyocabinet.*;
 
 public class TCADBEX {
