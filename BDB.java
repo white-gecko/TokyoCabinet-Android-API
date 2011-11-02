@@ -339,17 +339,17 @@ public class BDB implements DBM {
    * @note If a record with the same key exists in the database, the new records are placed
    * after the existing one.
    */
-  public native boolean putlist(byte[] key, List values);
+  public native boolean putlist(byte[] key, List<byte[]> values);
   /**
    * Store records with allowing duplication of keys.
    * The same as `putlist(key.getBytes(), value)'.  Type of each element should be `String'.
    * @see #putlist(byte[], List)
    */
-  public boolean putlist(String key, List values){
-    List avalues = new ArrayList();
-    Iterator it = values.iterator();
+  public boolean putlist(String key, List<String> values){
+    List<byte[]> avalues = new ArrayList<byte[]>();
+    Iterator<String> it = values.iterator();
     while(it.hasNext()){
-      String value = (String)it.next();
+      String value = it.next();
       avalues.add(value.getBytes());
     }
     return putlist(key.getBytes(), avalues);
@@ -407,19 +407,19 @@ public class BDB implements DBM {
    * @return If successful, it is a list of the values of the corresponding records.  `null' is
    * returned if no record corresponds.  Type of each element is `byte[]'.
    */
-  public native List getlist(byte[] key);
+  public native List<byte[]> getlist(byte[] key);
   /**
    * Retrieve records.
    * The same as `getlist(key.getBytes())'.  However, type of each element is `String'.
    * @see #get(byte[])
    */
-  public List getlist(String key){
-    List values = getlist(key.getBytes());
+  public List<String> getlist(String key){
+    List<byte[]> values = getlist(key.getBytes());
     if(values != null){
-      List svalues = new ArrayList();
-      Iterator it = values.iterator();
+      List<String> svalues = new ArrayList<String>();
+      Iterator<byte[]> it = values.iterator();
       while(it.hasNext()){
-        byte[] value = (byte[])it.next();
+        byte[] value = it.next();
         svalues.add(Util.otos(value));
       }
       return svalues;
