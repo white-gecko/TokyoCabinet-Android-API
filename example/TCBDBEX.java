@@ -11,7 +11,7 @@ public class TCBDBEX {
     // open the database
     if(!bdb.open("casket.tcb", BDB.OWRITER | BDB.OCREAT)){
       int ecode = bdb.ecode();
-      System.err.println("open error: " + bdb.errmsg(ecode));
+      System.err.println("open error: " + BDB.errmsg(ecode));
     }
 
     // store records
@@ -19,7 +19,7 @@ public class TCBDBEX {
        !bdb.put("bar", "step") ||
        !bdb.put("baz", "jump")){
       int ecode = bdb.ecode();
-      System.err.println("put error: " + bdb.errmsg(ecode));
+      System.err.println("put error: " + BDB.errmsg(ecode));
     }
 
     // retrieve records
@@ -28,7 +28,7 @@ public class TCBDBEX {
       System.out.println(value);
     } else {
       int ecode = bdb.ecode();
-      System.err.println("get error: " + bdb.errmsg(ecode));
+      System.err.println("get error: " + BDB.errmsg(ecode));
     }
 
     // traverse records
@@ -46,7 +46,7 @@ public class TCBDBEX {
     // close the database
     if(!bdb.close()){
       int ecode = bdb.ecode();
-      System.err.println("close error: " + bdb.errmsg(ecode));
+      System.err.println("close error: " + BDB.errmsg(ecode));
     }
 
   }

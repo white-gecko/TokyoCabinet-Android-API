@@ -1,6 +1,7 @@
 package tokyocabinet.example;
 
 import tokyocabinet.*;
+
 import java.util.*;
 
 public class TCTDBEX {
@@ -12,7 +13,7 @@ public class TCTDBEX {
     // open the database
     if(!tdb.open("casket.tct", TDB.OWRITER | TDB.OCREAT)){
       int ecode = tdb.ecode();
-      System.err.println("open error: " + tdb.errmsg(ecode));
+      System.err.println("open error: " + TDB.errmsg(ecode));
     }
 
     // store a record
@@ -23,7 +24,7 @@ public class TCTDBEX {
     cols.put("lang", "ja,en,c");
     if(!tdb.put(pkey, cols)){
       int ecode = tdb.ecode();
-      System.err.println("put error: " + tdb.errmsg(ecode));
+      System.err.println("put error: " + TDB.errmsg(ecode));
     }
 
     // store another record
@@ -34,7 +35,7 @@ public class TCTDBEX {
     cols.put("skill", "cook,blog");
     if(!tdb.put("x12345", cols)){
       int ecode = tdb.ecode();
-      System.err.println("put error: " + tdb.errmsg(ecode));
+      System.err.println("put error: " + TDB.errmsg(ecode));
     }
 
     // search for records
@@ -54,7 +55,7 @@ public class TCTDBEX {
     // close the database
     if(!tdb.close()){
       int ecode = tdb.ecode();
-      System.err.println("close error: " + tdb.errmsg(ecode));
+      System.err.println("close error: " + TDB.errmsg(ecode));
     }
 
   }

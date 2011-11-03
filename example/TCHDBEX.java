@@ -11,7 +11,7 @@ public class TCHDBEX {
     // open the database
     if(!hdb.open("casket.tch", HDB.OWRITER | HDB.OCREAT)){
       int ecode = hdb.ecode();
-      System.err.println("open error: " + hdb.errmsg(ecode));
+      System.err.println("open error: " + HDB.errmsg(ecode));
     }
 
     // store records
@@ -19,7 +19,7 @@ public class TCHDBEX {
        !hdb.put("bar", "step") ||
        !hdb.put("baz", "jump")){
       int ecode = hdb.ecode();
-      System.err.println("put error: " + hdb.errmsg(ecode));
+      System.err.println("put error: " + HDB.errmsg(ecode));
     }
 
     // retrieve records
@@ -28,7 +28,7 @@ public class TCHDBEX {
       System.out.println(value);
     } else {
       int ecode = hdb.ecode();
-      System.err.println("get error: " + hdb.errmsg(ecode));
+      System.err.println("get error: " + HDB.errmsg(ecode));
     }
 
     // traverse records
@@ -44,7 +44,7 @@ public class TCHDBEX {
     // close the database
     if(!hdb.close()){
       int ecode = hdb.ecode();
-      System.err.println("close error: " + hdb.errmsg(ecode));
+      System.err.println("close error: " + HDB.errmsg(ecode));
     }
 
   }
