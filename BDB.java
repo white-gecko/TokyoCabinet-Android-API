@@ -493,19 +493,19 @@ public class BDB implements DBM {
    * @return a list object of the keys of the corresponding records.  This method does never fail.
    * It returns an empty list even if no record corresponds.
    */
-  public native List range(byte[] bkey, boolean binc, byte[] ekey, boolean einc, int max);
+  public native List<byte[]> range(byte[] bkey, boolean binc, byte[] ekey, boolean einc, int max);
   /**
    * Get keys of ranged records.
    * The same as `range(bkey.getBytes(), binc, ekey.getBytes(), einc, max)'.  However, type of
    * each element is `String'.
    * @see #range(byte[], boolean, byte[], boolean, int)
    */
-  public List range(String bkey, boolean binc, String ekey, boolean einc, int max){
-    List keys = range(bkey.getBytes(), binc, ekey.getBytes(), einc, max);
-    List skeys = new ArrayList();
-    Iterator it = keys.iterator();
+  public List<String> range(String bkey, boolean binc, String ekey, boolean einc, int max){
+    List<byte[]> keys = range(bkey.getBytes(), binc, ekey.getBytes(), einc, max);
+    List<String> skeys = new ArrayList<String>();
+    Iterator<byte[]> it = keys.iterator();
     while(it.hasNext()){
-      byte[] key = (byte[])it.next();
+      byte[] key = it.next();
       skeys.add(Util.otos(key));
     }
     return skeys;
@@ -518,18 +518,18 @@ public class BDB implements DBM {
    * @return a list object of the keys of the corresponding records.  This method does never fail.
    * It returns an empty list even if no record corresponds.
    */
-  public native List fwmkeys(byte[] prefix, int max);
+  public native List<byte[]> fwmkeys(byte[] prefix, int max);
   /**
    * Get forward matching keys.
    * The same as `fwmkeys(prefix.getBytes(), max)'.  However, type of each element is `String'.
    * @see #fwmkeys(byte[], int)
    */
-  public List fwmkeys(String prefix, int max){
-    List keys = fwmkeys(prefix.getBytes(), max);
-    List skeys = new ArrayList();
-    Iterator it = keys.iterator();
+  public List<String> fwmkeys(String prefix, int max){
+    List<byte[]> keys = fwmkeys(prefix.getBytes(), max);
+    List<String> skeys = new ArrayList<String>();
+    Iterator<byte[]> it = keys.iterator();
     while(it.hasNext()){
-      byte[] key = (byte[])it.next();
+      byte[] key = it.next();
       skeys.add(Util.otos(key));
     }
     return skeys;
